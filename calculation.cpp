@@ -12,30 +12,7 @@ void CalculationDataReceivedCallback(void* customedObj, SOCKET_REF sender, CalcD
 	//センサー番号、0はヒップにあるセンサー
 	int CurSel = 14;
 	//インデックスの計算
-	int dataIndex = CurSel * 16;
-
-	// // コーディングのための最適化
-	// float posX = data[dataIndex + 0];
-	// float posY = data[dataIndex + 1];
-	// float posZ = data[dataIndex + 2];
-	// float veloX = data[dataIndex + 3];
-	// float veloY = data[dataIndex + 4];
-	// float veloZ = data[dataIndex + 5];
-	// char strBuff[32];
-	// //浮動小数点を文字列に変換して画面に表示
-	// sprintf(strBuff,"%0.3f", posX);
-	// cout << "X = {" << strBuff;
-	// sprintf(strBuff,"%0.3f", veloX);
-	// cout << ", " << strBuff << "}";
-	// sprintf(strBuff,"%0.3f", posY);
-	// cout << ", Y = " << strBuff;
-	// sprintf(strBuff,"%0.3f", veloY);
-	// cout << ", " << strBuff << "}";
-	// sprintf(strBuff,"%0.3f", posZ);
-	// cout << ", Z = " << strBuff;
-	// sprintf(strBuff,"%0.3f", veloZ);
-	// cout << ", " << strBuff << "}";
-	// cout << endl;
+	int dataIndex = CurSel * 16; // 224
 
 	// int j = 0;
 	// for (int i = 0; i < 933; i++) {
@@ -52,13 +29,64 @@ void CalculationDataReceivedCallback(void* customedObj, SOCKET_REF sender, CalcD
 	// }
 	// printf("\n\n");
 
-	for (int i=224; i<240; i++) {
-		float sample = data[i];
-		char strBuff[32];
-		sprintf(strBuff, "%0.3f", sample);
-		printf("\t%s", strBuff);
-	}
-	printf("\n\n");
+	// 14 * 16 = 224; 224 + 16 = 240
+	float Position_X = data[dataIndex+0];
+	float Position_Y = data[dataIndex+1];
+	float Position_Z = data[dataIndex+2];
+	float Velocity_X = data[dataIndex+3];
+	float Velocity_Y = data[dataIndex+4];
+	float Velocity_Z = data[dataIndex+5];
+	float Quaternion_W = data[dataIndex+6];
+	float Quaternion_X = data[dataIndex+7];
+	float Quaternion_Y = data[dataIndex+8];
+	float Quaternion_Z = data[dataIndex+9];
+	float AcceleratedVelocity_X = data[dataIndex+10];
+	float AcceleratedVelocity_Y = data[dataIndex+11];
+	float AcceleratedVelocity_Z = data[dataIndex+12];
+	float Gyro_X = data[dataIndex+13];
+	float Gyro_Y = data[dataIndex+14];
+	float Gyro_Z = data[dataIndex+15];
+	char strBuff[32];
+	
+	sprintf(strBuff, "%0.3f", Position_X);
+	cout << "'X' = " << strBuff << ", ";
+	sprintf(strBuff, "%0.3f", Position_Y);
+	cout << "'Y' = " << strBuff << ", ";
+	sprintf(strBuff, "%0.3f", Position_Z);
+	cout << "'Z' = " << strBuff << ", ";
+
+	// sprintf(strBuff, "%0.3f", Velocity_X);
+	// cout << "'veloX' = " << strBuff << ", ";
+	// sprintf(strBuff, "%0.3f", Velocity_Y);
+	// cout << "'veloY' = " << strBuff << ", ";
+	// sprintf(strBuff, "%0.3f", Velocity_Z);
+	// cout << "'veloZ' = " << strBuff << ", ";
+
+	// sprintf(strBuff, "%0.3f", Quaternion_W);
+	// cout << "'quatW' = " << strBuff << ", ";
+	// sprintf(strBuff, "%0.3f", Quaternion_X);
+	// cout << "'quatX' = " << strBuff << ", ";
+	// sprintf(strBuff, "%0.3f", Quaternion_Y);
+	// cout << "'quatY' = " << strBuff << ", ";
+	// sprintf(strBuff, "%0.3f", Quaternion_Z);
+	// cout << "'quatZ' = " << strBuff << ", ";
+
+	sprintf(strBuff, "%0.3f", AcceleratedVelocity_X);
+	cout << "'acceVeloX' = " << strBuff << ", ";
+	sprintf(strBuff, "%0.3f", AcceleratedVelocity_Y);
+	cout << "'acceVeloY' = " << strBuff << ", ";
+	sprintf(strBuff, "%0.3f", AcceleratedVelocity_Z);
+	cout << "'acceVeloZ' = " << strBuff << ", ";
+
+	sprintf(strBuff, "%0.3f", Gyro_X);
+	cout << "'gyroX' = " << strBuff << ", ";
+	sprintf(strBuff, "%0.3f", Gyro_X);
+	cout << "'gyroY' = " << strBuff << ", ";
+	sprintf(strBuff, "%0.3f", Gyro_X);
+	cout << "'gyroZ' = " << strBuff << ", ";
+
+	printf("\n");
+	
 }
 
 int main()
