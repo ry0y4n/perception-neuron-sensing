@@ -10,7 +10,7 @@ using namespace std;
 void bvhFrameDataReceived(void* customedObj, SOCKET_REF sender, BvhDataHeader* header, float* data)
 {
 	//センサー番号、0はヒップにあるセンサー
-	int CurSel = 37;
+	int CurSel = 38;
 	//インデックスの計算
 	int dataIndex = CurSel * 6;
 	if(header->WithReference)
@@ -18,43 +18,43 @@ void bvhFrameDataReceived(void* customedObj, SOCKET_REF sender, BvhDataHeader* h
 		printf("with reference....");
 		dataIndex += 6;
 	}
-	// // コーディングのための最適化
-	// float dispX = data[dataIndex + 0];
-	// float dispY = data[dataIndex + 1];
-	// float dispZ = data[dataIndex + 2];
-	// float angX = data[dataIndex + 4];
-	// float angY = data[dataIndex + 3];
-	// float angZ = data[dataIndex + 5];
-	// char strBuff[32];
-	// //浮動小数点を文字列に変換して画面に表示
-	// sprintf(strBuff,"%0.3f", dispX);
-	// cout << "X = {" << strBuff;
-	// sprintf(strBuff,"%0.3f", angX);
-	// cout << ", " << strBuff << "}";
-	// sprintf(strBuff,"%0.3f", dispY);
-	// cout << ", Y = " << strBuff;
-	// sprintf(strBuff,"%0.3f", angY);
-	// cout << ", " << strBuff << "}";
-	// sprintf(strBuff,"%0.3f", dispZ);
-	// cout << ", Z = " << strBuff;
-	// sprintf(strBuff,"%0.3f", angZ);
-	// cout << ", " << strBuff << "}";
-	// cout << endl;
+	// コーディングのための最適化
+	float dispX = data[dataIndex + 0];
+	float dispY = data[dataIndex + 1];
+	float dispZ = data[dataIndex + 2];
+	float angX = data[dataIndex + 4];
+	float angY = data[dataIndex + 3];
+	float angZ = data[dataIndex + 5];
+	char strBuff[32];
+	//浮動小数点を文字列に変換して画面に表示
+	sprintf(strBuff,"%0.3f", dispX);
+	cout << "X = {" << strBuff;
+	sprintf(strBuff,"%0.3f", angX);
+	cout << ", " << strBuff << "}";
+	sprintf(strBuff,"%0.3f", dispY);
+	cout << ", Y = " << strBuff;
+	sprintf(strBuff,"%0.3f", angY);
+	cout << ", " << strBuff << "}";
+	sprintf(strBuff,"%0.3f", dispZ);
+	cout << ", Z = " << strBuff;
+	sprintf(strBuff,"%0.3f", angZ);
+	cout << ", " << strBuff << "}";
+	cout << endl;
 
-	int j = 0;
-	for (int i = 0; i < 353; i++) {
-		float sample = data[i];
-		char strBuff[32];
-		sprintf(strBuff, "%0.3f", sample);
+	// int j = 0;
+	// for (int i = 0; i < 353; i++) {
+	// 	float sample = data[i];
+	// 	char strBuff[32];
+	// 	sprintf(strBuff, "%0.3f", sample);
 
-		if (i % 6 == 0) {
-			printf("%d	| ", j);
-			j++;
-		}
-		printf("\t%s\t", strBuff);
-		if ((i+1) % 6 == 0) printf("\n");
-	}
-	printf("\n\n");
+	// 	if (i % 6 == 0) {
+	// 		printf("%d	| ", j);
+	// 		j++;
+	// 	}
+	// 	printf("\t%s\t", strBuff);
+	// 	if ((i+1) % 6 == 0) printf("\n");
+	// }
+	// printf("\n\n");
 }
 
 int main()
@@ -64,7 +64,7 @@ int main()
 	//コールバックの登録
 	BRRegisterFrameDataCallback(&sample, bvhFrameDataReceived);
 	//TCP接続
-	char ip[] = "192.168.100.44";
+	char ip[] = "192.168.100.56";
 	mySocket = BRConnectTo(ip, 7001);
 	while(true)
 	{

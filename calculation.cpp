@@ -10,7 +10,7 @@ using namespace std;
 void CalculationDataReceivedCallback(void* customedObj, SOCKET_REF sender, CalcDataHeader* header, float* data)
 {
 	//センサー番号、0はヒップにあるセンサー
-	int CurSel = 37;
+	int CurSel = 14;
 	//インデックスの計算
 	int dataIndex = CurSel * 16;
 
@@ -37,18 +37,26 @@ void CalculationDataReceivedCallback(void* customedObj, SOCKET_REF sender, CalcD
 	// cout << ", " << strBuff << "}";
 	// cout << endl;
 
-	int j = 37;
-	for (int i = 592; i < 933; i++) {
+	// int j = 0;
+	// for (int i = 0; i < 933; i++) {
+	// 	float sample = data[i];
+	// 	char strBuff[32];
+	// 	sprintf(strBuff, "%0.3f", sample);
+
+	// 	if (i % 16 == 0) {
+	// 		printf("%d	| ", j);
+	// 		j++;
+	// 	}
+	// 	printf("\t%s", strBuff);
+	// 	if ((i+1) % 16 == 0) printf("\n");
+	// }
+	// printf("\n\n");
+
+	for (int i=224; i<240; i++) {
 		float sample = data[i];
 		char strBuff[32];
 		sprintf(strBuff, "%0.3f", sample);
-
-		if (i % 16 == 0) {
-			printf("%d	| ", j);
-			j++;
-		}
 		printf("\t%s", strBuff);
-		if ((i+1) % 16 == 0) printf("\n");
 	}
 	printf("\n\n");
 }
@@ -58,10 +66,9 @@ int main()
 	SOCKET_REF mySocket;
     uint32_t sample;
 	//コールバックの登録
-	// BRRegisterFrameDataCallback(&sample, bvhFrameDataReceived);
     BRRegisterCalculationDataCallback(&sample, CalculationDataReceivedCallback);
 	//TCP接続
-	char ip[] = "192.168.100.44";
+	char ip[] = "192.168.100.56";
 	mySocket = BRConnectTo(ip, 7003);
 	while(true)
 	{
