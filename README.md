@@ -1,4 +1,7 @@
 # perception-neuron-sensing
+`perception neuron` のリサーチリポジトリ
+
+モーションキャプチャからbvhデータとcalculationデータをストリーミングしリアルタイムに出力するプログラムを実装
 
 ## commands
 bvhデータ
